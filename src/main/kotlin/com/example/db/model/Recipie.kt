@@ -6,10 +6,14 @@ import org.bson.types.ObjectId
 
 @Serializable
 data class Recipie(
-    val name: String,
-    val procedure: String,
-    val items: String,
-    val time: String,
     @BsonId
-    val id: String = ObjectId().toString()
+    val id: String = ObjectId().toString(),
+    val name: String,
+    val time: String,
+    val timeType: String,
+    val image: String,
+    val serving: String,
+    val procedure: List<String>,
+    val items: List<Pair<String, String>>,
+    val level: String
 )

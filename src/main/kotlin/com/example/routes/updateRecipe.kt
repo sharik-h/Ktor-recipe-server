@@ -2,26 +2,42 @@ package com.example.routes
 
 import com.example.db.model.Recipie
 import com.example.room.RoomController
+import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.update(controller: RoomController) {
-    get("/updateRecipe") {
-        val id = call.parameters["id"] ?: return@get
-        val name = call.parameters["name"] ?: return@get
-        val time = call.parameters["time"] ?: return@get
-        val procedure = call.parameters["procedure"] ?: return@get
-        val items = call.parameters["items"] ?: return@get
+    post("/updateRecipe") {
+        call.respond(HttpStatusCode.OK, "called insert")
+        val id = call.parameters["id"] ?: return@post
+        val name = call.parameters["name"] ?: return@post
+        val procedure = call.parameters.getAll("procedure")?.map { it } ?: return@post
+        val time = call.parameters["time"] ?: return@post
+        val level = call.parameters["levels"] ?: return@post
+        val timeType = call.parameters["timeType"] ?: return@post
+        val serving = call.parameters["servings"] ?: return@post
+        val image = call.parameters["image"] ?: return@post
+        val items = call.parameters["items"]
+            ?.removeSurrounding("{", "}")
+            ?.split(",")
+            ?.map {item ->
+                item.substringBefore("=") to item.substringAfter("=")
+            }
 
-        val recipie = Recipie(
+        val recipe = Recipie(
+            id = id,
             name = name,
-            time = time,
-            items =  items,
             procedure = procedure,
-            id = id
+            time = time,
+            items = items!!,
+            level = level,
+            serving = serving,
+            image = image,
+            timeType = timeType
         )
 
-        controller.updateRecipe(recipie)
+        controller.updateRecipe(recipe)
 
     }
 }

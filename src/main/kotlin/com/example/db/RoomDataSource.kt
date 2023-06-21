@@ -4,7 +4,7 @@ import com.example.db.model.Recipie
 
 interface RoomDataSource {
 
-    suspend fun getRecipie(items: String): List<Recipie>
+    suspend fun getRecipie(): List<Recipie>
 
     suspend fun addRecipie(recipie: Recipie)
 

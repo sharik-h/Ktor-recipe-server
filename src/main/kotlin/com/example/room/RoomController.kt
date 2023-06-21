@@ -7,8 +7,8 @@ class RoomController(
     private val dataSource: RoomDataSourceImpl
 ) {
 
-    suspend fun getAllRecipie(items: String): List<Recipie> {
-        return dataSource.getRecipie(items)
+    suspend fun getAllRecipie(): List<Recipie> {
+        return dataSource.getRecipie()
     }
 
     suspend fun addRecipie(recipie: Recipie) {

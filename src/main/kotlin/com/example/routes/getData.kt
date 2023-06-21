@@ -8,9 +8,6 @@ import io.ktor.server.routing.*
 
 fun Route.getRecipies(controller: RoomController) {
     get("/getRecipes") {
-
-        val items = call.parameters["items"] ?: ""
-        call.respond(HttpStatusCode.OK, controller.getAllRecipie(items))
-
+        call.respond(HttpStatusCode.OK, controller.getAllRecipie())
     }
 }

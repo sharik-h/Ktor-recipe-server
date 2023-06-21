@@ -15,8 +15,8 @@ class RoomDataSourceImpl(
     val collection = mongo.getCollection<Recipie>()
 
 
-    override suspend fun getRecipie(items: String): List<Recipie> {
-        return collection.find(Recipie::items eq(items)).toList()
+    override suspend fun getRecipie(): List<Recipie> {
+        return collection.find().toList()
     }
 
     override suspend fun addRecipie(recipie: Recipie) {
